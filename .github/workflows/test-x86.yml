@@ -1,0 +1,19 @@
+name: Test x86_64
+description: Run tests on x86_64 architecture
+
+on: [push, workflow_dispatch]
+
+jobs:
+  integration-test:
+    name: Integration Test on x86_64
+    runs-on: ubuntu-latest
+    container: dragonos/dragonos-dev:v1.14
+    continue-on-error: true
+    steps:
+      - name: Checkout DragonOS code
+      - uses: actions/checkout@v4
+
+      - name: Run syscall test
+        shell: bash -ileo pipefail {0}
+        run: |
+          make run-nographic AUTO_TEST=syscall SYSCALL_TEST_DIR=/opt/tests/gvisor
