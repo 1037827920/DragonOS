@@ -1,16 +1,7 @@
 name: Build Check
 
-on:
-  workflow_dispatch:
-    inputs:
-    env:
-      description: "选择运行环境"
-      required: true
-      default: "staging"
-  push:
-    branches: ["master", "feat-*", "fix-*"]
-  pull_request:
-    branches: ["master", "feat-*", "fix-*"]
+on: [push, workflow_dispatch]
+
 
 jobs:
   format-check:
