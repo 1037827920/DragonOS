@@ -11,7 +11,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Checkout DragonOS code
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Run syscall test
         shell: bash -ileo pipefail {0}
