@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: dragonos/dragonos-dev:v1.14
-      options: --privileged
+      options: --privileged -v /dev:/dev
     continue-on-error: true
     steps:
       - name: Checkout DragonOS code
