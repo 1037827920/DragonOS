@@ -24,4 +24,4 @@ jobs:
       - name: Run syscall test
         shell: bash -ileo pipefail {0}
         run: |
-          make run-nographic AUTO_TEST=syscall SYSCALL_TEST_DIR=/opt/tests/gvisor
+          make test-syscall
