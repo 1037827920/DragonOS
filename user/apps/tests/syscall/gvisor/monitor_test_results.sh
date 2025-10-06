@@ -15,11 +15,11 @@ clean_up() {
 # 每隔10s查看qemu串口输出日志文件serial_opt.txt后100行是否包含“测试完成”
 while true; do
     sleep 10
-    tail -n 100 "$SERIAL_FILE" | grep "测试完成" && break
+    tail -n 100 "$SERIAL_FILE" | grep -a "测试完成" && break
 done
 
 # 提取成功率
-success_rate=$(grep "成功率" "$SERIAL_FILE" | awk -F'[:%]' '{gsub(/ /,""); print $2}')
+success_rate=$(grep -a "成功率" "$SERIAL_FILE" | awk -F'[:%]' '{gsub(/ /,""); print $2}')
 
 # 比较是否等于100
 if [ "$success_rate" = "100.00" ]; then
