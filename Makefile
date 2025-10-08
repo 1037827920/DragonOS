@@ -155,9 +155,6 @@ run-docker: check_arch
 
 test-syscall: check_arch
 	@echo "构建运行并执行syscall测试"
-	bash user/apps/tests/syscall/gvisor/enable_compile_gvisor.sh
-	$(MAKE) all -j $(NPROCS)
-	$(MAKE) write_diskimage || exit 1
 	$(MAKE) qemu-nographic AUTO_TEST=syscall SYSCALL_TEST_DIR=/opt/tests/gvisor &
 	QEMU_PID=$$!
 	bash user/apps/tests/syscall/gvisor/monitor_test_results.sh || { bash user/apps/tests/syscall/gvisor/disable_compile_gvisor.sh; exit 1; }

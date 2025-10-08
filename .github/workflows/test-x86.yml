@@ -3,10 +3,10 @@ description: Run tests on x86_64 architecture
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["master", "feat-*", "fix-*"]
-  pull_request:
-    branches: ["master", "feat-*", "fix-*"]
+  workflow_run:
+    workflows: ["Build Check"]   # 等待名为 "Build Check" 的 workflow 完成
+    types:
+      - completed          # 当它完成时触发（不论成功或失败）
 
 env:
   ARCH: x86_64
@@ -17,6 +17,7 @@ env:
 jobs:
   integration-test:
     name: Integration Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}  # 仅在构建成功时执行
     runs-on: ubuntu-latest
     container: 
       image: dragonos/dragonos-dev:v1.14
@@ -24,6 +25,12 @@ jobs:
     steps:
       - name: Checkout DragonOS code
         uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dragonos-x86_64-artifacts
+          path: bin/
 
       - name: Run syscall test
         shell: bash -ileo pipefail {0}
