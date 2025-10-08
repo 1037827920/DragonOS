@@ -158,8 +158,6 @@ test-syscall: check_arch
 	$(MAKE) qemu-nographic AUTO_TEST=syscall SYSCALL_TEST_DIR=/opt/tests/gvisor &
 	QEMU_PID=$$!
 	bash user/apps/tests/syscall/gvisor/monitor_test_results.sh || { bash user/apps/tests/syscall/gvisor/disable_compile_gvisor.sh; exit 1; }
-	bash user/apps/tests/syscall/gvisor/disable_compile_gvisor.sh
-
 fmt: check_arch
 	@echo "格式化代码" 
 	FMT_CHECK=$(FMT_CHECK) $(MAKE) fmt -C kernel

@@ -91,6 +91,7 @@ jobs:
             export DragonOS_GCC=$HOME/opt/dragonos-gcc/gcc-x86_64-unknown-none/bin
           fi
           sed -i 's/arch = ".*"/arch = "${{ env.ARCH }}"/' dadk-manifest.toml
+          bash user/apps/tests/syscall/gvisor/enable_compile_gvisor.sh
           make ${{ matrix.make_target }} -j $(nproc)
       
       - name: Upload build artifacts
